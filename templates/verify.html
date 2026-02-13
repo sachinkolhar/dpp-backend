@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Product Verification</title>
+    <style>
+      body {
+        font-family: Arial;
+        background-color: #f4f6f9;
+        text-align: center;
+        padding: 50px;
+      }
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        width: 400px;
+        margin: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .verified {
+        color: green;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .fake {
+        color: red;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .label {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      {% if product %}
+      <div class="verified">✔ Authentic Product</div>
+      <hr />
+      <p><span class="label">Product ID:</span> {{ product.product_id }}</p>
+      <p><span class="label">Name:</span> {{ product.metadata.name }}</p>
+      <p><span class="label">Brand:</span> {{ product.metadata.brand }}</p>
+      <p>
+        <span class="label">Manufacturer:</span> {{
+        product.metadata.manufacturer }}
+      </p>
+      <p>
+        <span class="label">Production Date:</span> {{
+        product.metadata.production_date }}
+      </p>
+      {% else %}
+      <div class="fake">❌ Product Not Found</div>
+      <p>This product ID does not exist in the system.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
