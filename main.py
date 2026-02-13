@@ -6,6 +6,9 @@ from utils import generate_uuid, hash_metadata, generate_qr_code
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+import os
+
+BASE_URL = os.getenv("BASE_URL", "http://127.0.0.1:8000")
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -17,7 +20,8 @@ def register_product(product: Product):
     product_id = generate_uuid()
     metadata_hash = hash_metadata(product_data)
 
-    verification_url = f"http://127.0.0.1:8001/verify-product/{product_id}"
+    verification_url = f"{BASE_URL}/verify-product/{product_id}"
+
 
     generate_qr_code(verification_url, product_id)
 
