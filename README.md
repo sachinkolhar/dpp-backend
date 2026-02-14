@@ -1,5 +1,4 @@
-
-## Digital Product Passport (DPP) System
+# Digital Product Passport (DPP) System
 
 - A cloud-hosted Digital Product Passport system that enables secure product authentication using QR-based verification and cryptographic metadata hashing.
 
@@ -26,6 +25,8 @@
 Client → FastAPI Backend → MongoDB Atlas
 Product Registration → UUID + Hash → Store
 QR Scan → Verification Endpoint → Authenticity UI
+
+<img width="1536" height="1024" alt="system" src="https://github.com/user-attachments/assets/f78ee81a-69f2-4e1a-9f5a-7a269f8efee7" />
 
 ---
 
