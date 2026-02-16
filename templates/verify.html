@@ -48,7 +48,13 @@
         <span class="label">Production Date:</span> {{
         product.metadata.production_date }}
       </p>
+
+      <hr />
+      <h4>Scan QR Code</h4>
+      <img src="/static/{{ product.product_id }}.png" width="180" />
+
       {% else %}
+
       <div class="fake">❌ Product Not Found</div>
       <p>This product ID does not exist in the system.</p>
       {% endif %}
