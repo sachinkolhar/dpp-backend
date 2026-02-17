@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from database import collection
 from models import Product
 from utils import generate_uuid, hash_metadata, generate_qr_code
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
@@ -12,7 +11,7 @@ BASE_URL = os.getenv("BASE_URL", "http://127.0.0.1:8000")
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 templates = Jinja2Templates(directory="templates")
 
@@ -38,7 +37,7 @@ def register_product(product: Product):
 
     collection.insert_one(record)
 
-    qr_image_url = f"{BASE_URL}/static/{product_id}.png"
+    
 
     return {
     "message": "Product registered successfully",
@@ -46,7 +45,6 @@ def register_product(product: Product):
     "verification_url": verification_url,
     "qr_code": qr_code
 }
-
 
 @app.get("/verify-product/{product_id}", response_class=HTMLResponse)
 def verify_product(request: Request, product_id: str):
@@ -58,7 +56,11 @@ def verify_product(request: Request, product_id: str):
             "product": None
         })
 
+    # Generate QR again for UI
+    qr_code = generate_qr_code(record["verification_url"])
+
     return templates.TemplateResponse("verify.html", {
         "request": request,
-        "product": record
+        "product": record,
+        "qr_code": qr_code
     })
