@@ -3,7 +3,8 @@ import hashlib
 import json
 import os
 import qrcode
-
+import io
+import base64
 def generate_uuid():
     return str(uuid.uuid4())
 
@@ -13,8 +14,13 @@ def hash_metadata(data: dict):
 
 
 
-def generate_qr_code(data: str, filename: str):
-    os.makedirs("static", exist_ok=True)
+
+def generate_qr_code(data: str):
     qr = qrcode.make(data)
-    qr.save(f"static/{filename}.png")
+    buffer = io.BytesIO()
+    qr.save(buffer, format="PNG")
+    buffer.seek(0)
+
+    img_str = base64.b64encode(buffer.read()).decode()
+    return img_str
 

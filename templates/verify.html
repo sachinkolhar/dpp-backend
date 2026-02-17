@@ -30,33 +30,45 @@
       .label {
         font-weight: bold;
       }
+      .qr-section {
+        margin-top: 20px;
+      }
+      img {
+        margin-top: 10px;
+        border-radius: 8px;
+      }
     </style>
   </head>
   <body>
     <div class="card">
       {% if product %}
+
       <div class="verified">✔ Authentic Product</div>
       <hr />
+
       <p><span class="label">Product ID:</span> {{ product.product_id }}</p>
       <p><span class="label">Name:</span> {{ product.metadata.name }}</p>
       <p><span class="label">Brand:</span> {{ product.metadata.brand }}</p>
       <p>
-        <span class="label">Manufacturer:</span> {{
-        product.metadata.manufacturer }}
+        <span class="label">Manufacturer:</span>
+        {{ product.metadata.manufacturer }}
       </p>
       <p>
-        <span class="label">Production Date:</span> {{
-        product.metadata.production_date }}
+        <span class="label">Production Date:</span>
+        {{ product.metadata.production_date }}
       </p>
 
-      <hr />
-      <h4>Scan QR Code</h4>
-      <img src="/static/{{ product.product_id }}.png" width="180" />
-
-      {% else %}
+      {% if product.qr_code %}
+      <div class="qr-section">
+        <hr />
+        <h4>QR Code</h4>
+        <img src="data:image/png;base64,{{ product.qr_code }}" width="180" />
+      </div>
+      {% endif %} {% else %}
 
       <div class="fake">❌ Product Not Found</div>
       <p>This product ID does not exist in the system.</p>
+
       {% endif %}
     </div>
   </body>

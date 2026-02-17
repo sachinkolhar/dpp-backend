@@ -26,7 +26,8 @@ def register_product(product: Product):
     verification_url = f"{BASE_URL}/verify-product/{product_id}"
 
 
-    generate_qr_code(verification_url, product_id)
+    qr_code = generate_qr_code(verification_url)
+
 
     record = {
         "product_id": product_id,
@@ -43,7 +44,7 @@ def register_product(product: Product):
     "message": "Product registered successfully",
     "product_id": product_id,
     "verification_url": verification_url,
-    "qr_image_url": qr_image_url
+    "qr_code": qr_code
 }
 
 
